@@ -46,5 +46,11 @@ module Simple
       assert_equal 42, expr.reduce(x: 42)
       assert_equal "«x»", expr.inspect
     end
+
+    def test_assign
+      expr = Assign.new(:y, Add.new(Variable.new(:x), Number.new(4)))
+      assert expr.reducible?
+      assert_equal "«y = x + 4»", expr.inspect
+    end
   end
 end

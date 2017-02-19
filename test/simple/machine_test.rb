@@ -17,5 +17,19 @@ module Simple
       vm = Machine.new(expr, env).tap(&:run)
       assert_equal Number.new(7), vm.expression
     end
+
+    def test_assign_statement
+      vm = Machine.new(
+        Assign.new(:x, Add.new(Variable.new(:x), Number.new(1))),
+        x: Number.new(2)
+      ).tap(&:run)
+      assert_equal({ x: Number.new(3) }, vm.environment)
+
+      vm = Machine.new(
+        Assign.new(:y, Add.new(Variable.new(:x), Number.new(1))),
+        x: Number.new(2)
+      ).tap(&:run)
+      assert_equal({ x: Number.new(2), y: Number.new(3) }, vm.environment)
+    end
   end
 end

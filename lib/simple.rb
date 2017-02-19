@@ -119,4 +119,44 @@ module Simple
       env[name]
     end
   end
+
+  class DoNothing
+    def to_s
+      "do-nothing"
+    end
+
+    def ==(other)
+      other.instance_of?(DoNothing)
+    end
+
+    def inspect
+      "«#{self}»"
+    end
+
+    def reducible?
+      false
+    end
+  end
+
+  class Assign < Struct.new(:name, :expression)
+    def to_s
+      "#{name} = #{expression}"
+    end
+
+    def inspect
+      "«#{self}»"
+    end
+
+    def reducible?
+      true
+    end
+
+    def reduce(env)
+      if expression.reducible?
+        [Assign.new(name, expression.reduce(env)), env]
+      else
+        [DoNothing.new, env.update(name => expression)]
+      end
+    end
+  end
 end
