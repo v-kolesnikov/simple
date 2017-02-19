@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+require 'simple'
+require 'simple/repl'
+
+Simple::Repl.start
