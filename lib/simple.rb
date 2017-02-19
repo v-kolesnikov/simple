@@ -208,4 +208,25 @@ module Simple
       end
     end
   end
+
+  class While < Struct.new(:condition, :body)
+    def to_s
+      "while #{condition} { #{body} }"
+    end
+
+    def inspect
+      "«#{self}»"
+    end
+
+    def reducible?
+      true
+    end
+
+    def reduce(env)
+      statement = If.new(condition,
+                         Sequence.new(body, While.new(condition, body)),
+                         DoNothing.new)
+      [statement, env]
+    end
+  end
 end

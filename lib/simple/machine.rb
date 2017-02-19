@@ -4,7 +4,7 @@ module Simple
       case syntax
       when Number, Boolean, Add, Multiply, LessThan
         ExpressionMachine
-      when DoNothing, Assign, If, Sequence
+      when DoNothing, Assign, If, Sequence, While
         StatementMachine
       end.new(syntax, *args)
     end

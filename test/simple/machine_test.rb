@@ -56,5 +56,15 @@ module Simple
       env = { x: Number.new(2002), y: Number.new(2005), z: Number.new(4007) }
       assert_equal env, vm.environment
     end
+
+    def test_while_statement
+      expr = While.new(
+        LessThan.new(Variable.new(:x), Number.new(10)),
+        Assign.new(:x, Add.new(Variable.new(:x), Number.new(2)))
+      )
+
+      vm = Machine.new(expr, x: Number.new(1)).tap(&:run)
+      assert_equal({ x: Number.new(11) }, vm.environment)
+    end
   end
 end
