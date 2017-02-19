@@ -184,4 +184,28 @@ module Simple
       end
     end
   end
+
+  class Sequence < Struct.new(:first, :second)
+    def to_s
+      "#{first}; #{second}"
+    end
+
+    def inspect
+      "«#{self}»"
+    end
+
+    def reducible?
+      true
+    end
+
+    def reduce(env)
+      case first
+      when DoNothing
+        [second, env]
+      else
+        reduced, new_env = first.reduce(env)
+        [Sequence.new(reduced, second), new_env]
+      end
+    end
+  end
 end
