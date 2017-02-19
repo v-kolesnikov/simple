@@ -52,5 +52,16 @@ module Simple
       assert expr.reducible?
       assert_equal "«y = x + 4»", expr.inspect
     end
+
+    def test_if_statement
+      expr = If.new(
+        Boolean.new(true),
+        Assign.new(:x, Number.new(42)),
+        Assign.new(:x, Number.new(24))
+      )
+
+      assert expr.reducible?
+      assert_equal "«if true { x = 42 } else { x = 24 }»", expr.inspect
+    end
   end
 end

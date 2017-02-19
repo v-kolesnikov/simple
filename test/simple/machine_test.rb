@@ -31,5 +31,16 @@ module Simple
       ).tap(&:run)
       assert_equal({ x: Number.new(2), y: Number.new(3) }, vm.environment)
     end
+
+    def test_if_statement
+      expr = If.new(
+        Variable.new(:x),
+        Assign.new(:y, Number.new(42)),
+        Assign.new(:y, Number.new(24))
+      )
+
+      vm = Machine.new(expr, x: Boolean.new(true)).tap(&:run)
+      assert_equal({ x: Boolean.new(true), y: Number.new(42) }, vm.environment)
+    end
   end
 end
