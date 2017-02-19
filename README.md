@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/v-kolesnikov/simple.svg?branch=master)](https://travis-ci.org/v-kolesnikov/simple)
+
 # Simple
 
 ## Installation
@@ -5,16 +7,12 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple'
+gem 'simple', git: "https://github.com/v-kolesnikov/simple.git"
 ```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install simple
 
 ## Usage
 
@@ -37,4 +35,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
