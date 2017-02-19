@@ -11,14 +11,14 @@ module Simple
     def test_add
       assert expr = Add.new(Number.new(3), Number.new(4))
       assert expr.reducible?
-      assert_equal Number.new(7), expr.reduce
+      assert_equal Number.new(7), expr.reduce({})
       assert_equal "«3 + 4»", expr.inspect
     end
 
     def test_multiply
       assert expr = Multiply.new(Number.new(3), Number.new(4))
       assert expr.reducible?
-      assert_equal Number.new(12), expr.reduce
+      assert_equal Number.new(12), expr.reduce({})
       assert_equal "«3 * 4»", expr.inspect
     end
 
@@ -36,8 +36,15 @@ module Simple
     def test_less_than
       assert expr = LessThan.new(Number.new(3), Number.new(4))
       assert expr.reducible?
-      assert_equal Boolean.new(true), expr.reduce
+      assert_equal Boolean.new(true), expr.reduce({})
       assert_equal "«3 < 4»", expr.inspect
+    end
+
+    def test_variable
+      assert expr = Variable.new(:x)
+      assert expr.reducible?
+      assert_equal 42, expr.reduce(x: 42)
+      assert_equal "«x»", expr.inspect
     end
   end
 end

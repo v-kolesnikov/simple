@@ -10,5 +10,12 @@ module Simple
 
       assert_equal Number.new(22), vm.expression
     end
+
+    def test_env
+      expr = Add.new(Variable.new(:x), Variable.new(:y))
+      env = { x: Number.new(3), y: Number.new(4) }
+      vm = Machine.new(expr, env).tap(&:run)
+      assert_equal Number.new(7), vm.expression
+    end
   end
 end

@@ -29,11 +29,11 @@ module Simple
       true
     end
 
-    def reduce
+    def reduce(env)
       if left.reducible?
-        Add.new(left.reduce, right)
+        Add.new(left.reduce(env), right)
       elsif right.reducible?
-        Add.new(left, right.reduce)
+        Add.new(left, right.reduce(env))
       else
         Number.new(left.value + right.value)
       end
@@ -53,11 +53,11 @@ module Simple
       true
     end
 
-    def reduce
+    def reduce(env)
       if left.reducible?
-        Multiply.new(left.reduce, right)
+        Multiply.new(left.reduce(env), right)
       elsif right.reducible?
-        Multiply.new(left, right.reduce)
+        Multiply.new(left, right.reduce(env))
       else
         Number.new(left.value * right.value)
       end
@@ -91,14 +91,32 @@ module Simple
       true
     end
 
-    def reduce
+    def reduce(env)
       if left.reducible?
-        LessThan.new(left.reduce, right)
+        LessThan.new(left.reduce(env), right)
       elsif right.reducible?
-        LessThan.new(left, right.reduce)
+        LessThan.new(left, right.reduce(env))
       else
         Boolean.new(left.value < right.value)
       end
+    end
+  end
+
+  class Variable < Struct.new(:name)
+    def to_s
+      name.to_s
+    end
+
+    def inspect
+      "«#{self}»"
+    end
+
+    def reducible?
+      true
+    end
+
+    def reduce(env)
+      env[name]
     end
   end
 end
