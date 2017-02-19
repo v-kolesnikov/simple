@@ -1,3 +1,4 @@
+require 'simple/machine'
 require 'simple/version'
 
 module Simple
