@@ -2,6 +2,9 @@
 
 require 'bundler/setup'
 require 'simple'
+require 'finite_automata'
+
+include FiniteAutomata
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
